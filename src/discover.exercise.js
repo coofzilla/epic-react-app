@@ -6,7 +6,7 @@ import Tooltip from '@reach/tooltip'
 import {FaSearch} from 'react-icons/fa'
 import {Input, BookListUL, Spinner} from './components/lib'
 import {BookRow} from './components/book-row'
-// 🐨 import the client from './utils/api-client'
+import {client} from './utils/api-client'
 
 function DiscoverBooksScreen() {
   // 🐨 add state for status ('idle', 'loading', or 'success'), data, and query
@@ -26,8 +26,11 @@ function DiscoverBooksScreen() {
   const isLoading = false
   const isSuccess = false
 
-  function handleSearchSubmit(event) {
+  async function handleSearchSubmit(event) {
     // 🐨 call preventDefault on the event so you don't get a full page reload
+    event.preventDefault()
+    const {data} = await client(`books?query=${encodeURIComponent('potato')}`)
+    console.log(data)
     // 🐨 set the queried state to true
     // 🐨 set the query value which you can get from event.target.elements
     // 💰 console.log(event.target.elements) if you're not sure.
